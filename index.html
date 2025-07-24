@@ -4,244 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Relay Control Dashboard</title>
-    <style>
-      /* General Page Styles */
-      body {
-        margin: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #141e30, #243b55);
-        color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        flex-direction: column;
-        padding: 20px;
-        box-sizing: border-box;
-      }
-
-      h1 {
-        margin-bottom: 20px;
-        font-size: 2.5em;
-        color: #fff;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        text-align: center;
-        width: 100%;
-      }
-
-      /* Login Form */
-      #loginForm {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-        text-align: center;
-        backdrop-filter: blur(8px);
-        width: 100%;
-        max-width: 350px;
-        box-sizing: border-box;
-      }
-
-      #loginForm input {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 8px;
-        border: none;
-        outline: none;
-        font-size: 16px;
-        color: #333;
-        box-sizing: border-box;
-      }
-
-      #loginBtn {
-        background: #1e90ff;
-        color: #fff;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: 0.3s;
-        font-size: 16px;
-        width: 100%;
-      }
-
-      #loginBtn:hover {
-        background: #63a4ff;
-        box-shadow: 0 0 15px #63a4ff;
-      }
-
-      /* Dashboard */
-      #dashboard {
-        display: none;
-        width: 100%;
-        max-width: 900px;
-        text-align: center;
-      }
-
-      .relay-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        margin: 20px 0;
-      }
-
-      /* Relay Cards */
-      .relay-card {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        transition: 0.3s;
-        backdrop-filter: blur(6px);
-      }
-
-      .relay-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 25px rgba(30, 144, 255, 0.6);
-      }
-
-      .relay-card h2 {
-        margin-bottom: 10px;
-        font-size: 20px;
-      }
-
-      /* Toggle + Status Row */
-      .switch-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-        margin-top: 10px;
-      }
-
-      .status-text {
-        font-size: 16px;
-        font-weight: bold;
-        color: #f0f0f0;
-        min-width: 50px;
-        transition: color 0.3s ease-in-out;
-      }
-
-      .status-text.on {
-        color: #28a745;
-      }
-
-      .status-text.off {
-        color: #ff3b3b;
-      }
-
-      /* Slider Toggle Button */
-      button.toggle-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        outline: none;
-        position: relative;
-        width: 70px;
-        height: 30px;
-        border-radius: 30px;
-        background-color: #444;
-        transition: background-color 0.3s ease-in-out;
-        color: #fff;
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 30px;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        padding-right: 8px;
-        padding-left: 30px;
-      }
-
-      button.toggle-button::before {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        width: 24px;
-        height: 24px;
-        background: #fff;
-        border-radius: 50%;
-        transition: transform 0.3s ease-in-out;
-      }
-
-      button.toggle-button.active {
-        background-color: #28a745;
-        box-shadow: 0 0 10px #28a745;
-        justify-content: flex-start;
-        padding-left: 8px;
-        padding-right: 30px;
-      }
-
-      button.toggle-button.active::before {
-        transform: translateX(40px);
-      }
-
-      /* Control Buttons */
-      .control-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 20px;
-      }
-
-      #allOffBtn,
-      #allOnBtn,
-      #logoutBtn {
-        flex-grow: 1;
-        max-width: 150px;
-        padding: 10px 18px;
-        border-radius: 8px;
-        color: #fff;
-        font-size: 14px;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-
-      #allOffBtn {
-        background: #ff3b3b;
-      }
-
-      #allOffBtn:hover {
-        background: #ff6f6f;
-        box-shadow: 0 0 15px #ff6f6f;
-      }
-
-      #allOnBtn {
-        background: #28a745;
-      }
-
-      #allOnBtn:hover {
-        background: #4ade80;
-        box-shadow: 0 0 15px #4ade80;
-      }
-
-      #logoutBtn {
-        background: #444;
-      }
-
-      #logoutBtn:hover {
-        background: #666;
-        box-shadow: 0 0 15px #888;
-      }
-
-      footer {
-        margin-top: 20px;
-        color: #ccc;
-        font-size: 14px;
-        text-align: center;
-        opacity: 0.8;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div id="greetingHUD">
+      <div id="greeting">Loading...</div>
+      <div id="time">--:--</div>
+      <div id="dayDate">---</div>
+      <div id="connectionStatus">
+        ESP32 Status <span class="status-dot"></span>
+      </div>
+    </div>
+
+    <div id="settings">
+      <button id="settingsBtn">⚙️</button>
+      <div id="settingsPanel">
+        <div class="setting-item">
+          <span>Sounds</span>
+          <button id="soundToggle" class="mini-toggle active"></button>
+        </div>
+        <div class="setting-item">
+          <span>Animations</span>
+          <button id="animToggle" class="mini-toggle active"></button>
+        </div>
+      </div>
+    </div>
+
     <h1>Switch Control Dashboard</h1>
 
-    <!-- Login form -->
     <div id="loginForm">
       <input type="email" id="email" placeholder="Enter Email" required />
       <input
@@ -253,7 +43,6 @@
       <button id="loginBtn">Login</button>
     </div>
 
-    <!-- Dashboard -->
     <div id="dashboard">
       <div class="relay-container">
         <div class="relay-card">
@@ -262,6 +51,8 @@
             <button id="btn1" class="toggle-button"></button>
             <span id="status1" class="status-text">Loading...</span>
           </div>
+
+          <p class="last-updated" id="updated1">Last changed: just now</p>
         </div>
         <div class="relay-card">
           <h2>Switch 2</h2>
@@ -269,6 +60,8 @@
             <button id="btn2" class="toggle-button"></button>
             <span id="status2" class="status-text">Loading...</span>
           </div>
+
+          <p class="last-updated" id="updated2">Last changed: just now</p>
         </div>
         <div class="relay-card">
           <h2>Switch 3</h2>
@@ -276,6 +69,8 @@
             <button id="btn3" class="toggle-button"></button>
             <span id="status3" class="status-text">Loading...</span>
           </div>
+
+          <p class="last-updated" id="updated3">Last changed: just now</p>
         </div>
         <div class="relay-card">
           <h2>Switch 4</h2>
@@ -283,9 +78,10 @@
             <button id="btn4" class="toggle-button"></button>
             <span id="status4" class="status-text">Loading...</span>
           </div>
+
+          <p class="last-updated" id="updated4">Last changed: just now</p>
         </div>
       </div>
-
       <div class="control-buttons">
         <button id="allOnBtn">All ON</button>
         <button id="allOffBtn">All OFF</button>
@@ -293,117 +89,17 @@
       </div>
     </div>
 
-    <footer>
-      Muhammad Faizan Hassan <br />
-      @2025
-    </footer>
+    <footer>Muhammad Faizan Hassan <br />@2025</footer>
 
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <audio
+      id="clickSound"
+      src="Sound/mixkit-on-or-off-light-switch-tap-2585.wav"
+    ></audio>
+    <audio id="toggleOnSound" src="Sound/mixkit-select-click-1109.wav"></audio>
 
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyDP_sHx9_EyBVHlEhiJcjyzVbJMtfYDT-Q",
-        authDomain: "esp32-01-e981e.firebaseapp.com",
-        databaseURL:
-          "https://esp32-01-e981e-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "esp32-01-e981e",
-        storageBucket: "esp32-01-e981e.firebasestorage.app",
-        messagingSenderId: "1091034304678",
-        appId: "1:1091034304678:web:4e392723c2930800a22467",
-      };
-
-      firebase.initializeApp(firebaseConfig);
-
-      const allowedEmail = "abc@gmail.com";
-      const allowedPassword = "1234567890";
-
-      const loginForm = document.getElementById("loginForm");
-      const dashboard = document.getElementById("dashboard");
-      const loginBtn = document.getElementById("loginBtn");
-
-      loginBtn.addEventListener("click", () => {
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-
-        if (!email || !password) {
-          alert("Please enter email and password.");
-          return;
-        }
-
-        if (email === allowedEmail && password === allowedPassword) {
-          firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(() => {
-              loginForm.style.display = "none";
-              dashboard.style.display = "block";
-              startRelayControl();
-            })
-            .catch((error) => {
-              alert("Firebase login failed: " + error.message);
-            });
-        } else {
-          alert("Invalid email or password.");
-        }
-      });
-
-      function startRelayControl() {
-        const db = firebase.database();
-
-        const relays = [
-          { id: 1, path: "relay1" },
-          { id: 2, path: "relay2" },
-          { id: 3, path: "relay3" },
-          { id: 4, path: "relay4" },
-        ];
-
-        relays.forEach((relay) => {
-          const statusText = document.getElementById(`status${relay.id}`);
-          const toggleButton = document.getElementById(`btn${relay.id}`);
-          const relayRef = db.ref("/" + relay.path);
-
-          relayRef.on("value", (snapshot) => {
-            const state = snapshot.val();
-            statusText.innerText = state ? "ON" : "OFF";
-            toggleButton.classList.toggle("active", state);
-            toggleButton.innerText = state ? "ON" : "OFF";
-            statusText.classList.toggle("on", state);
-            statusText.classList.toggle("off", !state);
-          });
-
-          toggleButton.onclick = () => {
-            relayRef.get().then((snap) => {
-              relayRef.set(!snap.val());
-            });
-          };
-        });
-
-        document.getElementById("allOnBtn").onclick = () => {
-          relays.forEach((relay) => db.ref("/" + relay.path).set(true));
-        };
-
-        document.getElementById("allOffBtn").onclick = () => {
-          relays.forEach((relay) => db.ref("/" + relay.path).set(false));
-        };
-      }
-
-      document.getElementById("logoutBtn").onclick = () => {
-        firebase
-          .auth()
-          .signOut()
-          .then(() => {
-            dashboard.style.display = "none";
-            loginForm.style.display = "block";
-            document.getElementById("email").value = "";
-            document.getElementById("password").value = "";
-          })
-          .catch((error) => {
-            alert("Logout failed: " + error.message);
-          });
-      };
-    </script>
+    <script src="app.js"></script>
   </body>
 </html>
