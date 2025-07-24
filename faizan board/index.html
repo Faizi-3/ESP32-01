@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relay Control Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="greetingHUD">
+      <div id="greeting">Loading...</div>
+      <div id="time">--:--</div>
+      <div id="dayDate">---</div>
+      <div id="connectionStatus">
+        ESP32 Status <span class="status-dot"></span>
+      </div>
+    </div>
+
+    <div id="settings">
+      <button id="settingsBtn">⚙️</button>
+      <div id="settingsPanel">
+        <div class="setting-item">
+          <span>Sounds</span>
+          <button id="soundToggle" class="mini-toggle active"></button>
+        </div>
+        <div class="setting-item">
+          <span>Animations</span>
+          <button id="animToggle" class="mini-toggle active"></button>
+        </div>
+      </div>
+    </div>
+
+    <h1>Switch Control Dashboard</h1>
+
+    <div id="loginForm">
+      <input type="email" id="email" placeholder="Enter Email" required />
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter Password"
+        required
+      />
+      <button id="loginBtn">Login</button>
+    </div>
+
+    <div id="dashboard">
+      <div class="relay-container">
+        <div class="relay-card">
+          <h2>Switch 1</h2>
+          <div class="switch-row">
+            <button id="btn1" class="toggle-button"></button>
+            <span id="status1" class="status-text">Loading...</span>
+          </div>
+          <p class="last-updated" id="updated1">Last changed: just now</p>
+        </div>
+
+        <div class="relay-card">
+          <h2>Switch 2</h2>
+          <div class="switch-row">
+            <button id="btn2" class="toggle-button"></button>
+            <span id="status2" class="status-text">Loading...</span>
+          </div>
+          <p class="last-updated" id="updated2">Last changed: just now</p>
+        </div>
+
+        <div class="relay-card">
+          <h2>Switch 3</h2>
+          <div class="switch-row">
+            <button id="btn3" class="toggle-button"></button>
+            <span id="status3" class="status-text">Loading...</span>
+          </div>
+          <p class="last-updated" id="updated3">Last changed: just now</p>
+        </div>
+
+        <div class="relay-card">
+          <h2>Switch 4</h2>
+          <div class="switch-row">
+            <button id="btn4" class="toggle-button"></button>
+            <span id="status4" class="status-text">Loading...</span>
+          </div>
+          <p class="last-updated" id="updated4">Last changed: just now</p>
+        </div>
+      </div>
+
+      <div class="control-buttons">
+        <button id="allOnBtn">All ON</button>
+        <button id="allOffBtn">All OFF</button>
+        <button id="logoutBtn">Logout</button>
+      </div>
+    </div>
+
+    <footer>Muhammad Faizan Hassan <br />@2025</footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+
+    <audio
+      id="clickSound"
+      src="Sound/mixkit-on-or-off-light-switch-tap-2585.wav"
+    ></audio>
+    <audio id="toggleOnSound" src="Sound/mixkit-select-click-1109.wav"></audio>
+
+    <script src="app.js"></script>
+  </body>
+</html>
