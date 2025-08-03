@@ -1,198 +1,367 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="light">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Switch Control Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0 10px 40px;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        justify-content: space-between;
+      :root {
+        --bg-color-light: #f3f4f6;
+        --text-color-light: #1f2937;
+        --primary-color: #3b82f6; /* Blue-500 */
+        --primary-color-dark: #2563eb; /* Blue-600 */
       }
-      h1 {
-        margin-top: 30px;
-        font-size: 1.8rem;
-      }
-      .relay-card {
-        display: inline-block;
-        background-color: white;
-        padding: 20px;
-        margin: 15px;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 220px;
-        vertical-align: top;
-      }
-      .relay-card h2 {
-        margin-bottom: 10px;
-        font-size: 1.3rem;
-      }
-      .relay-card p {
-        margin-bottom: 10px;
-        font-size: 1rem;
-      }
-      .relay-card button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 10px;
-        color: white;
-        background-color: blue;
-        cursor: pointer;
-        font-size: 16px;
-        width: 90%;
-        transition: opacity 0.3s ease;
-      }
-      .relay-card button:hover {
-        opacity: 0.8;
-      }
-      #allOffBtn,
-      #logoutBtn {
-        max-width: 300px;
-        width: 90%;
-        padding: 12px 25px;
-        font-size: 16px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        margin: 15px auto;
-        display: block;
-        color: white;
-        transition: opacity 0.3s ease;
-      }
-      #allOffBtn {
-        background-color: #d32f2f;
-      }
-      #allOffBtn:hover {
-        opacity: 0.8;
-      }
-      #logoutBtn {
-        background-color: #555;
-      }
-      #logoutBtn:hover {
-        opacity: 0.8;
+      .dark {
+        --bg-color-dark: #111827;
+        --card-bg-dark: #1f2937;
+        --text-color-dark: #f3f4f6;
       }
 
-      /* Responsive layout */
-      #dashboard {
-        display: none;
-      }
-      #loginForm {
-        max-width: 400px;
-        margin: 80px auto 20px;
-        background: white;
-        padding: 30px 20px;
-        border-radius: 15px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      }
-      #loginForm input {
-        width: 100%;
-        padding: 12px 15px;
-        margin: 10px 0 20px;
-        font-size: 1rem;
-        border: 1.5px solid #ccc;
-        border-radius: 10px;
-        box-sizing: border-box;
-        outline-offset: 2px;
-        transition: border-color 0.3s ease;
-      }
-      #loginForm input:focus {
-        border-color: #1e88e5;
-      }
-      #loginForm button {
-        width: 100%;
-        background-color: #1e88e5;
-        color: white;
-        padding: 12px;
-        font-size: 18px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-color-light);
         transition: background-color 0.3s ease;
       }
-      #loginForm button:hover {
-        background-color: #1565c0;
+      .dark body {
+        background: var(--bg-color-dark);
       }
-      #dashboard .relay-container {
-        max-width: 960px;
-        margin: 20px auto 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+
+      /* Glassmorphism effect for cards */
+      .glassmorphic-card {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       }
-      /* Smaller devices */
-      @media (max-width: 700px) {
-        .relay-card {
-          width: 90%;
-          margin: 10px auto;
-          display: block;
+
+      .dark .glassmorphic-card {
+        background: rgba(31, 41, 55, 0.5);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Animation for login form fade-in */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
         }
-        body {
-          padding: 0 10px 60px;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
-      footer {
-        font-size: 0.9rem;
-        color: #666;
-        padding: 10px 0;
-        margin-top: 40px;
+      .animate-fadeIn {
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      /* Animation for dashboard fade-in */
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-slideInUp {
+        animation: slideInUp 0.8s ease-out;
+      }
+
+      /* Custom scrollbar for better aesthetics */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      .dark ::-webkit-scrollbar-track {
+        background: #2d3748;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #a0aec0;
+        border-radius: 10px;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #4a5568;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #718096;
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
+        background: #718096;
+      }
+      /* Custom toggle switch styling */
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ef4444; /* Red for OFF */
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: #22c55e; /* Green for ON */
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
       }
     </style>
   </head>
-  <body>
-    <h1>Switch Control Dashboard</h1>
-
-    <!-- Login form -->
-    <div id="loginForm">
-      <input type="email" id="email" placeholder="Enter Email" required />
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter Password"
-        required
-      />
-      <button id="loginBtn">Login</button>
+  <body
+    class="bg-gray-100 dark:bg-gray-900 transition-colors duration-500 min-h-screen flex items-center justify-center p-4"
+  >
+    <!-- Login Form -->
+    <div
+      id="loginForm"
+      class="w-full max-w-md mx-auto p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl transition-all duration-500 animate-fadeIn"
+    >
+      <h2
+        class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6"
+      >
+        Device Login
+      </h2>
+      <form class="space-y-6">
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >Email</label
+          >
+          <div class="mt-1">
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="Enter Email"
+              required
+              class="appearance-none block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50 dark:bg-gray-700 dark:text-white transition-colors duration-300"
+            />
+          </div>
+        </div>
+        <div>
+          <label
+            for="password"
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >Password</label
+          >
+          <div class="mt-1">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter Password"
+              required
+              class="appearance-none block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50 dark:bg-gray-700 dark:text-white transition-colors duration-300"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            id="loginBtn"
+            type="button"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105"
+          >
+            Sign in
+          </button>
+        </div>
+      </form>
     </div>
 
-    <!-- Dashboard -->
-    <div id="dashboard">
-      <div class="relay-container">
-        <div class="relay-card">
-          <h2>Relay 1</h2>
-          <p>Status: <span id="status1">Loading...</span></p>
-          <button id="btn1">Toggle</button>
+    <!-- Main Dashboard -->
+    <div
+      id="dashboard"
+      class="hidden w-full max-w-6xl mx-auto flex flex-col min-h-screen animate-slideInUp"
+    >
+      <!-- Header -->
+      <header
+        class="py-6 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center bg-gray-50 dark:bg-gray-800 rounded-b-3xl shadow-xl transition-colors duration-500"
+      >
+        <h1
+          class="text-3xl font-bold text-gray-900 dark:text-white mb-2 md:mb-0"
+        >
+          Switch Control Dashboard
+        </h1>
+        <div class="flex items-center space-x-4 mt-4 md:mt-0">
+          <!-- Welcome Note -->
+          <p
+            id="greeting-message"
+            class="text-lg font-semibold text-gray-700 dark:text-gray-300"
+          ></p>
+          <!-- Light/Dark Mode Toggle -->
+          <button
+            id="theme-toggle"
+            class="p-3 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-md"
+          >
+            <i
+              id="theme-icon"
+              class="fas fa-moon text-gray-800 dark:text-white"
+            ></i>
+          </button>
+          <!-- Logout Button -->
+          <button
+            id="logoutBtn"
+            class="py-2 px-4 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-all duration-300 transform hover:scale-105 shadow-md"
+          >
+            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="flex-grow p-4 md:p-8">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center mb-6"
+        >
+          <h2
+            class="text-2xl font-semibold text-gray-800 dark:text-cyan-400 mb-4 md:mb-0"
+          >
+            Relay Controls
+          </h2>
+          <button
+            id="allOffBtn"
+            class="py-2 px-6 rounded-xl text-sm font-medium text-white bg-red-500 hover:bg-red-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+          >
+            <i class="fas fa-power-off mr-2"></i> All OFF
+          </button>
         </div>
 
-        <div class="relay-card">
-          <h2>Relay 2</h2>
-          <p>Status: <span id="status2">Loading...</span></p>
-          <button id="btn2">Toggle</button>
-        </div>
+        <!-- Relay Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Relay Card 1 -->
+          <div
+            class="relay-card p-6 rounded-2xl shadow-xl glassmorphic-card transition-colors duration-500 transform hover:scale-105"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-emerald-400">
+                Relay 1
+              </h3>
+              <label class="switch">
+                <input type="checkbox" id="toggle1" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <p class="text-gray-600 dark:text-gray-200 mb-6">
+              Status: <span id="status1" class="font-bold">Loading...</span>
+            </p>
+          </div>
 
-        <div class="relay-card">
-          <h2>Relay 3</h2>
-          <p>Status: <span id="status3">Loading...</span></p>
-          <button id="btn3">Toggle</button>
-        </div>
+          <!-- Relay Card 2 -->
+          <div
+            class="relay-card p-6 rounded-2xl shadow-xl glassmorphic-card transition-colors duration-500 transform hover:scale-105"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-emerald-400">
+                Relay 2
+              </h3>
+              <label class="switch">
+                <input type="checkbox" id="toggle2" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <p class="text-gray-600 dark:text-gray-200 mb-6">
+              Status: <span id="status2" class="font-bold">Loading...</span>
+            </p>
+          </div>
 
-        <div class="relay-card">
-          <h2>Relay 4</h2>
-          <p>Status: <span id="status4">Loading...</span></p>
-          <button id="btn4">Toggle</button>
-        </div>
-      </div>
+          <!-- Relay Card 3 -->
+          <div
+            class="relay-card p-6 rounded-2xl shadow-xl glassmorphic-card transition-colors duration-500 transform hover:scale-105"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-emerald-400">
+                Relay 3
+              </h3>
+              <label class="switch">
+                <input type="checkbox" id="toggle3" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <p class="text-gray-600 dark:text-gray-200 mb-6">
+              Status: <span id="status3" class="font-bold">Loading...</span>
+            </p>
+          </div>
 
-      <button id="allOffBtn">All OFF</button>
-      <button id="logoutBtn">Logout</button>
+          <!-- Relay Card 4 -->
+          <div
+            class="relay-card p-6 rounded-2xl shadow-xl glassmorphic-card transition-colors duration-500 transform hover:scale-105"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-emerald-400">
+                Relay 4
+              </h3>
+              <label class="switch">
+                <input type="checkbox" id="toggle4" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <p class="text-gray-600 dark:text-gray-200 mb-6">
+              Status: <span id="status4" class="font-bold">Loading...</span>
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer
+        class="mt-auto py-4 px-4 md:px-8 text-center text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 rounded-t-3xl shadow-xl transition-colors duration-500"
+      >
+        <p>
+          Created by Muhammad Faizan Hassan <br />
+          <span id="current-year"></span>
+        </p>
+      </footer>
     </div>
-
-    <footer>Created by Muhammad Faizan Hassan <br />2025</footer>
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
@@ -200,7 +369,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 
     <script>
-      // Firebase config
+      // Firebase config - Kept as provided by the user.
       const firebaseConfig = {
         apiKey: "AIzaSyDP_sHx9_EyBVHlEhiJcjyzVbJMtfYDT-Q",
         authDomain: "esp32-01-e981e.firebaseapp.com",
@@ -218,31 +387,60 @@
       const allowedEmail = "abc@gmail.com";
       const allowedPassword = "1234567890";
 
+      // --- DOM Elements ---
       const loginForm = document.getElementById("loginForm");
       const dashboard = document.getElementById("dashboard");
       const loginBtn = document.getElementById("loginBtn");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const allOffBtn = document.getElementById("allOffBtn");
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      const currentYearSpan = document.getElementById("current-year");
+      const greetingMessage = document.getElementById("greeting-message");
 
+      // --- Initial Setup and Event Listeners ---
+      document.addEventListener("DOMContentLoaded", () => {
+        // Set current year in footer
+        currentYearSpan.textContent = new Date().getFullYear();
+
+        // Check for existing session or theme preference
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.classList.toggle(
+          "dark",
+          savedTheme === "dark"
+        );
+        if (savedTheme === "dark") {
+          themeIcon.classList.remove("fa-moon");
+          themeIcon.classList.add("fa-sun");
+        }
+
+        // Listen for Firebase auth state changes to show/hide the dashboard
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            showDashboard();
+            startRelayControl();
+          } else {
+            showLogin();
+          }
+        });
+      });
+
+      // Handle login button click
       loginBtn.addEventListener("click", () => {
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
 
         if (!email || !password) {
+          // Using a simple alert for placeholder validation, as in the original code.
           alert("Please enter email and password.");
           return;
         }
 
-        // Check hardcoded credentials first
         if (email === allowedEmail && password === allowedPassword) {
-          // Sign in with Firebase
+          // The Firebase sign-in logic is preserved as requested.
           firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-              console.log("Signed in as", userCredential.user.email);
-              loginForm.style.display = "none";
-              dashboard.style.display = "block";
-              startRelayControl();
-            })
             .catch((error) => {
               alert("Firebase login failed: " + error.message);
             });
@@ -251,6 +449,42 @@
         }
       });
 
+      // Handle logout button click
+      logoutBtn.onclick = () => {
+        // The Firebase sign-out logic is preserved as requested.
+        firebase
+          .auth()
+          .signOut()
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      };
+
+      // Handle 'All OFF' button click
+      allOffBtn.onclick = () => {
+        // The Firebase control logic is preserved as requested.
+        const db = firebase.database();
+        const relays = [
+          { id: 1, path: "relay1" },
+          { id: 2, path: "relay2" },
+          { id: 3, path: "relay3" },
+          { id: 4, path: "relay4" },
+        ];
+
+        relays.forEach((relay) => {
+          db.ref("/" + relay.path).set(false);
+        });
+      };
+
+      // Handle theme toggle button click
+      themeToggle.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        themeIcon.classList.toggle("fa-moon", !isDark);
+        themeIcon.classList.toggle("fa-sun", isDark);
+      });
+
+      // --- Core Relay Control Logic (Preserved from original code) ---
       function startRelayControl() {
         const db = firebase.database();
 
@@ -263,43 +497,67 @@
 
         relays.forEach((relay) => {
           const statusText = document.getElementById(`status${relay.id}`);
-          const toggleButton = document.getElementById(`btn${relay.id}`);
+          const toggleInput = document.getElementById(`toggle${relay.id}`);
           const relayRef = db.ref("/" + relay.path);
 
+          // Listen for value changes from Firebase
           relayRef.on("value", (snapshot) => {
             const state = snapshot.val();
             statusText.innerText = state ? "ON" : "OFF";
-            toggleButton.style.backgroundColor = state ? "green" : "blue";
+            statusText.style.color = state ? "#22c55e" : "#ef4444"; // Green for ON, Red for OFF
+            toggleInput.checked = state; // Update the toggle switch based on Firebase state
           });
 
-          toggleButton.onclick = () => {
-            relayRef.get().then((snap) => {
-              relayRef.set(!snap.val());
-            });
+          // Listen for user changes on the toggle switch
+          toggleInput.onchange = () => {
+            // Update the Firebase value when the switch is toggled
+            relayRef.set(toggleInput.checked);
           };
         });
-
-        document.getElementById("allOffBtn").onclick = () => {
-          relays.forEach((relay) => {
-            db.ref("/" + relay.path).set(false);
-          });
-        };
       }
 
-      document.getElementById("logoutBtn").onclick = () => {
-        firebase
-          .auth()
-          .signOut()
-          .then(() => {
-            dashboard.style.display = "none";
-            loginForm.style.display = "block";
-            document.getElementById("email").value = "";
-            document.getElementById("password").value = "";
-          })
-          .catch((error) => {
-            alert("Logout failed: " + error.message);
-          });
-      };
+      // --- UI Helper Functions ---
+
+      /**
+       * Determines the time of day and sets a greeting message.
+       */
+      function updateGreeting() {
+        const now = new Date();
+        const hours = now.getHours();
+        let greeting = "Good evening";
+
+        if (hours >= 5 && hours < 12) {
+          greeting = "Good morning";
+        } else if (hours >= 12 && hours < 18) {
+          greeting = "Good afternoon";
+        }
+
+        greetingMessage.textContent = greeting;
+      }
+
+      /**
+       * Hides the login form and displays the dashboard.
+       */
+      function showDashboard() {
+        loginForm.style.display = "none";
+        dashboard.style.display = "flex";
+        updateGreeting();
+      }
+
+      /**
+       * Hides the dashboard and displays the login form.
+       */
+      function showLogin() {
+        dashboard.style.display = "none";
+        loginForm.style.display = "block";
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+      }
+
+      // Add this event listener to sign out the user when the page is closed or reloaded
+      window.addEventListener("unload", () => {
+        firebase.auth().signOut();
+      });
     </script>
   </body>
 </html>
