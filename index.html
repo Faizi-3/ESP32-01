@@ -36,6 +36,7 @@
         font-family: "Inter", sans-serif;
         background: var(--bg-color-light);
         transition: background-color 0.3s ease;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
       }
       .dark body {
         background: var(--bg-color-dark);
@@ -225,19 +226,13 @@
     >
       <!-- Header -->
       <header
-        class="py-6 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center bg-gray-50 dark:bg-gray-800 rounded-b-3xl shadow-xl transition-colors duration-500"
+        class="py-4 px-4 md:px-8 flex items-center justify-between bg-gray-50 dark:bg-gray-800 rounded-b-3xl shadow-xl transition-colors duration-500"
       >
-        <h1
-          class="text-3xl font-bold text-gray-900 dark:text-white mb-2 md:mb-0"
-        >
-          Switch Control Dashboard
-        </h1>
-        <div class="flex items-center space-x-4 mt-4 md:mt-0">
-          <!-- Welcome Note -->
-          <p
-            id="greeting-message"
-            class="text-lg font-semibold text-gray-700 dark:text-gray-300"
-          ></p>
+        <p
+          id="greeting-message"
+          class="text-lg font-semibold text-gray-700 dark:text-gray-300"
+        ></p>
+        <div class="flex items-center space-x-4">
           <!-- Light/Dark Mode Toggle -->
           <button
             id="theme-toggle"
@@ -260,6 +255,11 @@
 
       <!-- Main Content -->
       <main class="flex-grow p-4 md:p-8">
+        <h1
+          class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6"
+        >
+          Switch Control Dashboard
+        </h1>
         <div
           class="flex flex-col md:flex-row justify-between items-center mb-6"
         >
@@ -268,12 +268,20 @@
           >
             Relay Controls
           </h2>
-          <button
-            id="allOffBtn"
-            class="py-2 px-6 rounded-xl text-sm font-medium text-white bg-red-500 hover:bg-red-600 transition-all duration-300 transform hover:scale-105 shadow-md"
-          >
-            <i class="fas fa-power-off mr-2"></i> All OFF
-          </button>
+          <div class="flex items-center space-x-4">
+            <button
+              id="allOnBtn"
+              class="py-2 px-6 rounded-xl text-sm font-medium text-white bg-green-500 hover:bg-green-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+            >
+              <i class="fas fa-power-on mr-2"></i> All ON
+            </button>
+            <button
+              id="allOffBtn"
+              class="py-2 px-6 rounded-xl text-sm font-medium text-white bg-red-500 hover:bg-red-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+            >
+              <i class="fas fa-power-off mr-2"></i> All OFF
+            </button>
+          </div>
         </div>
 
         <!-- Relay Cards Grid -->
@@ -359,6 +367,7 @@
         <p>
           Created by Muhammad Faizan Hassan <br />
           <span id="current-year"></span>
+          <br />In Processing
         </p>
       </footer>
     </div>
@@ -392,6 +401,7 @@
       const dashboard = document.getElementById("dashboard");
       const loginBtn = document.getElementById("loginBtn");
       const logoutBtn = document.getElementById("logoutBtn");
+      const allOnBtn = document.getElementById("allOnBtn"); // Added new button
       const allOffBtn = document.getElementById("allOffBtn");
       const themeToggle = document.getElementById("theme-toggle");
       const themeIcon = document.getElementById("theme-icon");
@@ -460,6 +470,21 @@
           });
       };
 
+      // Handle 'All ON' button click (new functionality)
+      allOnBtn.onclick = () => {
+        const db = firebase.database();
+        const relays = [
+          { id: 1, path: "relay1" },
+          { id: 2, path: "relay2" },
+          { id: 3, path: "relay3" },
+          { id: 4, path: "relay4" },
+        ];
+
+        relays.forEach((relay) => {
+          db.ref("/" + relay.path).set(true);
+        });
+      };
+
       // Handle 'All OFF' button click
       allOffBtn.onclick = () => {
         // The Firebase control logic is preserved as requested.
@@ -524,12 +549,12 @@
       function updateGreeting() {
         const now = new Date();
         const hours = now.getHours();
-        let greeting = "Good evening";
+        let greeting = "Good Evening";
 
         if (hours >= 5 && hours < 12) {
-          greeting = "Good morning";
+          greeting = "Good Morning";
         } else if (hours >= 12 && hours < 18) {
-          greeting = "Good afternoon";
+          greeting = "Good Afternoon";
         }
 
         greetingMessage.textContent = greeting;
