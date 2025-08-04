@@ -20,28 +20,21 @@
     />
 
     <style>
-      :root {
-        --bg-color-light: #f3f4f6;
-        --text-color-light: #1f2937;
-        --primary-color: #3b82f6; /* Blue-500 */
-        --primary-color-dark: #2563eb; /* Blue-600 */
-      }
-      .dark {
-        --bg-color-dark: #111827;
-        --card-bg-dark: #1f2937;
-        --text-color-dark: #f3f4f6;
-      }
-
       body {
         font-family: "Inter", sans-serif;
-        background: var(--bg-color-light);
+        background-color: #f3f4f6;
         transition: background-color 0.3s ease;
-        overflow-x: hidden; /* Prevent horizontal scrolling */
+        overflow-x: hidden;
       }
       .dark body {
-        background: var(--bg-color-dark);
+        background-color: #111827;
       }
 
+      /* Heading colors in dark mode */
+      .dark .text-heading-dark {
+          color: #fff;
+      }
+      
       /* Glassmorphism effect for cards */
       .glassmorphic-card {
         background: rgba(255, 255, 255, 0.2);
@@ -110,6 +103,7 @@
       .dark ::-webkit-scrollbar-thumb:hover {
         background: #718096;
       }
+
       /* Custom toggle switch styling */
       .switch {
         position: relative;
@@ -154,6 +148,11 @@
 
       input:checked + .slider:before {
         transform: translateX(26px);
+      }
+
+      .day-btn.active {
+        background-color: #3b82f6; /* Blue-500 */
+        color: white;
       }
     </style>
   </head>
@@ -255,16 +254,18 @@
 
       <!-- Main Content -->
       <main class="flex-grow p-4 md:p-8">
+        <!-- Heading text color is now white in dark mode -->
         <h1
-          class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6"
+          class="text-3xl font-bold text-center text-gray-900 text-heading-dark mb-6"
         >
           Switch Control Dashboard
         </h1>
         <div
           class="flex flex-col md:flex-row justify-between items-center mb-6"
         >
+          <!-- Heading text color is now white in dark mode -->
           <h2
-            class="text-2xl font-semibold text-gray-800 dark:text-cyan-400 mb-4 md:mb-0"
+            class="text-2xl font-semibold text-gray-800 text-heading-dark mb-4 md:mb-0"
           >
             Relay Controls
           </h2>
@@ -291,7 +292,8 @@
             class="relay-card p-6 rounded-2xl shadow-xl glassmorphic-card transition-colors duration-500 transform hover:scale-105"
           >
             <div class="flex justify-between items-center mb-4">
-              <h3 class="text-xl font-bold text-gray-900 dark:text-emerald-400">
+              <!-- Relay title is now white in dark mode -->
+              <h3 class="text-xl font-bold text-black dark:text-white">
                 Relay 1
               </h3>
               <label class="switch">
@@ -299,9 +301,9 @@
                 <span class="slider"></span>
               </label>
             </div>
-            <!-- Added heading for the relay card -->
-            <p class="text-gray-500 dark:text-gray-300 text-sm mb-2">Room Bulb</p>
-            <p class="text-gray-600 dark:text-gray-200 mb-6">
+            <!-- Sub-text is now a brighter gray in dark mode -->
+            <p class="text-black dark:text-gray-200 text-sm mb-2">Room Bulb</p>
+            <p class="text-black dark:text-gray-200 mb-6">
               Status: <span id="status1" class="font-bold">Loading...</span>
             </p>
           </div>
@@ -311,7 +313,8 @@
             class="relay-card p-6 rounded-2xl shadow-xl glassmorphic-card transition-colors duration-500 transform hover:scale-105"
           >
             <div class="flex justify-between items-center mb-4">
-              <h3 class="text-xl font-bold text-gray-900 dark:text-emerald-400">
+              <!-- Relay title is now white in dark mode -->
+              <h3 class="text-xl font-bold text-black dark:text-white">
                 Relay 2
               </h3>
               <label class="switch">
@@ -319,9 +322,9 @@
                 <span class="slider"></span>
               </label>
             </div>
-            <!-- Added heading for the relay card -->
-            <p class="text-gray-500 dark:text-gray-300 text-sm mb-2">Room Fan</p>
-            <p class="text-gray-600 dark:text-gray-200 mb-6">
+            <!-- Sub-text is now a brighter gray in dark mode -->
+            <p class="text-black dark:text-gray-200 text-sm mb-2">Room Fan</p>
+            <p class="text-black dark:text-gray-200 mb-6">
               Status: <span id="status2" class="font-bold">Loading...</span>
             </p>
           </div>
@@ -331,7 +334,8 @@
             class="relay-card p-6 rounded-2xl shadow-xl glassmorphic-card transition-colors duration-500 transform hover:scale-105"
           >
             <div class="flex justify-between items-center mb-4">
-              <h3 class="text-xl font-bold text-gray-900 dark:text-emerald-400">
+              <!-- Relay title is now white in dark mode -->
+              <h3 class="text-xl font-bold text-black dark:text-white">
                 Relay 3
               </h3>
               <label class="switch">
@@ -339,9 +343,9 @@
                 <span class="slider"></span>
               </label>
             </div>
-            <!-- Added heading for the relay card -->
-            <p class="text-gray-500 dark:text-gray-300 text-sm mb-2">Living Room Light</p>
-            <p class="text-gray-600 dark:text-gray-200 mb-6">
+            <!-- Sub-text is now a brighter gray in dark mode -->
+            <p class="text-black dark:text-gray-200 text-sm mb-2">Living Room Light</p>
+            <p class="text-black dark:text-gray-200 mb-6">
               Status: <span id="status3" class="font-bold">Loading...</span>
             </p>
           </div>
@@ -351,7 +355,8 @@
             class="relay-card p-6 rounded-2xl shadow-xl glassmorphic-card transition-colors duration-500 transform hover:scale-105"
           >
             <div class="flex justify-between items-center mb-4">
-              <h3 class="text-xl font-bold text-gray-900 dark:text-emerald-400">
+              <!-- Relay title is now white in dark mode -->
+              <h3 class="text-xl font-bold text-black dark:text-white">
                 Relay 4
               </h3>
               <label class="switch">
@@ -359,9 +364,9 @@
                 <span class="slider"></span>
               </label>
             </div>
-            <!-- Added heading for the relay card -->
-            <p class="text-gray-500 dark:text-gray-300 text-sm mb-2">Garden Lights</p>
-            <p class="text-gray-600 dark:text-gray-200 mb-6">
+            <!-- Sub-text is now a brighter gray in dark mode -->
+            <p class="text-black dark:text-gray-200 text-sm mb-2">Garden Lights</p>
+            <p class="text-black dark:text-gray-200 mb-6">
               Status: <span id="status4" class="font-bold">Loading...</span>
             </p>
           </div>
@@ -369,8 +374,9 @@
 
         <!-- --- -->
         <!-- Scheduling Section -->
+        <!-- Heading is now aligned left, under Relay Controls -->
         <h2
-          class="text-2xl font-semibold text-gray-800 dark:text-cyan-400 mt-12 mb-6 text-center"
+          class="text-2xl font-semibold text-gray-800 text-heading-dark mt-12 mb-6"
         >
           Scheduling & Automation
         </h2>
@@ -382,12 +388,12 @@
             class="schedule-settings flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-4"
           >
             <div class="flex-1">
-              <label for="schedule-relay-select" class="block text-sm font-medium mb-1"
+              <label for="schedule-relay-select" class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300"
                 >Select Relay</label
               >
               <select
                 id="schedule-relay-select"
-                class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600"
+                class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200 border-gray-300 dark:border-gray-600"
               >
                 <option value="1">Relay 1 - Room Bulb</option>
                 <option value="2">Relay 2 - Room Fan</option>
@@ -396,22 +402,22 @@
               </select>
             </div>
             <div class="flex-1">
-              <label for="schedule-time" class="block text-sm font-medium mb-1"
+              <label for="schedule-time" class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300"
                 >Scheduled Time</label
               >
               <input
                 type="time"
                 id="schedule-time"
-                class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600"
+                class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200 border-gray-300 dark:border-gray-600"
               />
             </div>
             <div class="flex-1">
-              <label for="schedule-action" class="block text-sm font-medium mb-1"
+              <label for="schedule-action" class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300"
                 >Action</label
               >
               <select
                 id="schedule-action"
-                class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600"
+                class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200 border-gray-300 dark:border-gray-600"
               >
                 <option value="on">Turn ON</option>
                 <option value="off">Turn OFF</option>
@@ -419,7 +425,7 @@
             </div>
           </div>
           <div class="mb-4">
-            <label for="schedule-days" class="block text-sm font-medium mb-1"
+            <label for="schedule-days" class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300"
               >Repeat on Days</label
             >
             <div id="schedule-days" class="flex flex-wrap gap-2">
@@ -491,7 +497,7 @@
 
         <!-- Scheduled Times Display -->
         <h3
-          class="text-xl font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-4"
+          class="text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-4"
         >
           Current Schedules
         </h3>
@@ -512,29 +518,18 @@
       </footer>
     </div>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-
     <script>
-      // Firebase config - Kept as provided by the user.
-      const firebaseConfig = {
-        apiKey: "AIzaSyDP_sHx9_EyBVHlEhiJcjyzVbJMtfYDT-Q",
-        authDomain: "esp32-01-e981e.firebaseapp.com",
-        databaseURL:
-          "https://esp32-01-e981e-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "esp32-01-e981e",
-        storageBucket: "esp32-01-e981e.firebasestorage.app",
-        messagingSenderId: "1091034304678",
-        appId: "1:1091034304678:web:4e392723c2930800a22467",
-      };
-
-      firebase.initializeApp(firebaseConfig);
-
-      // Predefined login credentials (can be replaced with your logic)
+      // Predefined login credentials
       const allowedEmail = "abc@gmail.com";
       const allowedPassword = "1234567890";
+
+      // --- In-memory state for switches ---
+      let relayStates = {
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+      };
 
       // --- DOM Elements ---
       const loginForm = document.getElementById("loginForm");
@@ -567,6 +562,32 @@
         if (window.navigator && window.navigator.vibrate) {
           window.navigator.vibrate(duration);
         }
+      }
+
+      // --- Theme Logic ---
+      /**
+       * Applies the theme based on local storage or system preference.
+       */
+      function applyTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+
+        // Determine the theme to apply
+        let themeToApply = "light";
+        if (savedTheme) {
+            themeToApply = savedTheme;
+        } else if (prefersDark) {
+            themeToApply = "dark";
+        }
+        
+        // Update the HTML element class
+        document.documentElement.classList.toggle("dark", themeToApply === "dark");
+
+        // Update the icon
+        themeIcon.classList.toggle("fa-moon", themeToApply === "light");
+        themeIcon.classList.toggle("fa-sun", themeToApply === "dark");
       }
 
       // --- Scheduling Logic ---
@@ -619,17 +640,14 @@
             scheduleItem.className = 'p-4 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-300';
             scheduleItem.innerHTML = `
               <p class="font-bold">${relayNames[relayId]}</p>
-              <p>Scheduled to turn <span class="font-bold text-${schedule.action === 'on' ? 'green-500' : 'red-500'}">${schedule.action}</span> at <span class="font-bold">${schedule.time}</span> on <span class="font-bold">${daysText}</span>.</p>
+              <p>Scheduled to turn <span class="font-bold text-${schedule.action === 'on' ? 'green-500' : 'red-500'}">${schedule.action.toUpperCase()}</span> at <span class="font-bold">${schedule.time}</span> on <span class="font-bold">${daysText}</span>.</p>
             `;
             schedulesDisplay.appendChild(scheduleItem);
           }
         }
-        // If no schedules, display a message
         if (Object.keys(schedules).length === 0) {
           schedulesDisplay.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">No schedules have been set.</p>';
         }
-
-        // Reset the schedule form and update summary
         updateScheduleSummary();
       }
 
@@ -641,7 +659,7 @@
         const time = scheduleTimeInput.value;
         const action = scheduleActionSelect.value;
         const selectedDays = Array.from(
-          document.querySelectorAll(`#schedule-days .day-btn.bg-blue-500`)
+          document.querySelectorAll(`#schedule-days .day-btn.active`)
         ).map((btn) => btn.getAttribute("data-day"));
 
         let summaryText = "";
@@ -657,7 +675,7 @@
       }
       
       /**
-       * Main function to check and trigger schedules.
+       * Simulates checking and triggering schedules.
        */
       function checkSchedules() {
         const now = new Date();
@@ -668,21 +686,16 @@
           const schedule = schedules[relayId];
           if (!schedule) continue;
 
-          // Check if time matches
           if (schedule.time === currentTime) {
-            // Check if day matches
             if (schedule.days.length === 0 || schedule.days.includes(String(currentDay))) {
               const state = schedule.action === "on";
-              const relayRef = firebase.database().ref("/" + `relay${relayId}`);
               
-              // Only trigger if the current state is different from the scheduled state
-              relayRef.once('value', snapshot => {
-                if (snapshot.val() !== state) {
-                    vibrate(); // Vibrate for scheduled action
-                    relayRef.set(state);
+              if (relayStates[relayId] !== state) {
+                    vibrate();
+                    relayStates[relayId] = state;
+                    updateRelayUI(relayId);
                     console.log(`Relay ${relayId} scheduled to turn ${schedule.action} at ${currentTime}.`);
-                }
-              });
+              }
             }
           }
         }
@@ -691,187 +704,23 @@
       // Run the scheduler check every minute
       setInterval(checkSchedules, 60000);
 
-      // --- Initial Setup and Event Listeners ---
-      document.addEventListener("DOMContentLoaded", () => {
-        // Set current year in footer
-        currentYearSpan.textContent = new Date().getFullYear();
-
-        // Check for existing session or theme preference
-        const savedTheme = localStorage.getItem("theme") || "light";
-        document.documentElement.classList.toggle(
-          "dark",
-          savedTheme === "dark"
-        );
-        if (savedTheme === "dark") {
-          themeIcon.classList.remove("fa-moon");
-          themeIcon.classList.add("fa-sun");
-        }
-
-        // Listen for Firebase auth state changes to show/hide the dashboard
-        firebase.auth().onAuthStateChanged((user) => {
-          if (user) {
-            showDashboard();
-            startRelayControl();
-            loadSchedules(); // Load schedules on dashboard show
-          } else {
-            showLogin();
-          }
-        });
-
-        // Event listeners for day buttons
-        dayButtons.forEach((button) => {
-          button.addEventListener("click", (e) => {
-            e.preventDefault();
-            vibrate(20);
-            button.classList.toggle("bg-blue-500");
-            button.classList.toggle("text-white");
-            updateScheduleSummary();
-          });
-        });
-
-        // Event listeners for schedule inputs
-        scheduleRelaySelect.addEventListener('change', updateScheduleSummary);
-        scheduleTimeInput.addEventListener('input', updateScheduleSummary);
-        scheduleActionSelect.addEventListener('change', updateScheduleSummary);
-
-        // Event listener for Set Schedule button
-        setScheduleBtn.addEventListener("click", () => {
-            vibrate();
-            const relayId = scheduleRelaySelect.value;
-            const time = scheduleTimeInput.value;
-            const action = scheduleActionSelect.value;
-            const selectedDays = Array.from(
-              document.querySelectorAll(
-                `#schedule-days .day-btn.bg-blue-500`
-              )
-            ).map((btn) => btn.getAttribute("data-day"));
-
-            if (!time) {
-              alert("Please select a time for the schedule.");
-              return;
-            }
-
-            schedules[relayId] = { time, action, days: selectedDays };
-            saveSchedules();
-            updateScheduleUI();
-        });
-
-        // Event listener for Remove Schedule button
-        removeScheduleBtn.addEventListener("click", () => {
-            vibrate();
-            const relayId = scheduleRelaySelect.value;
-            delete schedules[relayId];
-            saveSchedules();
-            updateScheduleUI();
-        });
-      });
-
-      // Handle login button click
-      loginBtn.addEventListener("click", () => {
-        vibrate();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-
-        if (!email || !password) {
-          alert("Please enter email and password.");
-          return;
-        }
-
-        if (email === allowedEmail && password === allowedPassword) {
-          firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .catch((error) => {
-              alert("Firebase login failed: " + error.message);
-            });
-        } else {
-          alert("Invalid email or password.");
-        }
-      });
-
-      // Handle logout button click
-      logoutBtn.onclick = () => {
-        vibrate();
-        firebase
-          .auth()
-          .signOut()
-          .catch((error) => {
-            alert("Logout failed: " + error.message);
-          });
-      };
-
-      // Handle 'All ON' button click
-      allOnBtn.onclick = () => {
-        vibrate();
-        const db = firebase.database();
-        const relays = [
-          { id: 1, path: "relay1" },
-          { id: 2, path: "relay2" },
-          { id: 3, path: "relay3" },
-          { id: 4, path: "relay4" },
-        ];
-
-        relays.forEach((relay) => {
-          db.ref("/" + relay.path).set(true);
-        });
-      };
-
-      // Handle 'All OFF' button click
-      allOffBtn.onclick = () => {
-        vibrate();
-        const db = firebase.database();
-        const relays = [
-          { id: 1, path: "relay1" },
-          { id: 2, path: "relay2" },
-          { id: 3, path: "relay3" },
-          { id: 4, path: "relay4" },
-        ];
-
-        relays.forEach((relay) => {
-          db.ref("/" + relay.path).set(false);
-        });
-      };
-
-      // Handle theme toggle button click
-      themeToggle.addEventListener("click", () => {
-        vibrate();
-        const isDark = document.documentElement.classList.toggle("dark");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-        themeIcon.classList.toggle("fa-moon", !isDark);
-        themeIcon.classList.toggle("fa-sun", isDark);
-      });
-
-      // --- Core Relay Control Logic ---
-      function startRelayControl() {
-        const db = firebase.database();
-
-        const relays = [
-          { id: 1, path: "relay1" },
-          { id: 2, path: "relay2" },
-          { id: 3, path: "relay3" },
-          { id: 4, path: "relay4" },
-        ];
-
-        relays.forEach((relay) => {
-          const statusText = document.getElementById(`status${relay.id}`);
-          const toggleInput = document.getElementById(`toggle${relay.id}`);
-          const relayRef = db.ref("/" + relay.path);
-
-          relayRef.on("value", (snapshot) => {
-            const state = snapshot.val();
-            statusText.innerText = state ? "ON" : "OFF";
-            statusText.style.color = state ? "#22c55e" : "#ef4444";
-            toggleInput.checked = state;
-          });
-
-          toggleInput.onchange = () => {
-            vibrate();
-            relayRef.set(toggleInput.checked);
-          };
-        });
+      // --- UI Helper Functions ---
+      function updateRelayUI(id) {
+        const statusText = document.getElementById(`status${id}`);
+        const toggleInput = document.getElementById(`toggle${id}`);
+        const state = relayStates[id];
+        
+        statusText.innerText = state ? "ON" : "OFF";
+        statusText.style.color = state ? "#22c55e" : "#ef4444";
+        toggleInput.checked = state;
       }
 
-      // --- UI Helper Functions ---
+      function updateAllRelayUI() {
+          for(const id in relayStates) {
+              updateRelayUI(id);
+          }
+      }
+
       function updateGreeting() {
         const now = new Date();
         const hours = now.getHours();
@@ -898,9 +747,121 @@
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
       }
+      
+      // --- Initial Setup and Event Listeners ---
+      document.addEventListener("DOMContentLoaded", () => {
+        currentYearSpan.textContent = new Date().getFullYear();
+        applyTheme();
+        loadSchedules();
+        updateAllRelayUI();
+      });
 
-      window.addEventListener("unload", () => {
-        firebase.auth().signOut();
+      // Handle login button click
+      loginBtn.addEventListener("click", () => {
+        vibrate();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+          alert("Please enter email and password.");
+          return;
+        }
+
+        if (email === allowedEmail && password === allowedPassword) {
+          showDashboard();
+        } else {
+          alert("Invalid email or password.");
+        }
+      });
+
+      // Handle logout button click
+      logoutBtn.onclick = () => {
+        vibrate();
+        showLogin();
+      };
+
+      // Handle 'All ON' button click
+      allOnBtn.onclick = () => {
+        vibrate();
+        for (let i = 1; i <= 4; i++) {
+          relayStates[i] = true;
+          updateRelayUI(i);
+        }
+      };
+
+      // Handle 'All OFF' button click
+      allOffBtn.onclick = () => {
+        vibrate();
+        for (let i = 1; i <= 4; i++) {
+          relayStates[i] = false;
+          updateRelayUI(i);
+        }
+      };
+
+      // Handle theme toggle button click
+      themeToggle.addEventListener("click", () => {
+        vibrate();
+        const isDark = document.documentElement.classList.toggle("dark");
+        const newTheme = isDark ? "dark" : "light";
+        localStorage.setItem("theme", newTheme);
+        themeIcon.classList.toggle("fa-moon", !isDark);
+        themeIcon.classList.toggle("fa-sun", isDark);
+      });
+
+      // Event listeners for individual relay toggles
+      for (let i = 1; i <= 4; i++) {
+        const toggleInput = document.getElementById(`toggle${i}`);
+        toggleInput.addEventListener('change', () => {
+          vibrate();
+          relayStates[i] = toggleInput.checked;
+          updateRelayUI(i);
+        });
+      }
+
+      // Event listeners for day buttons
+      dayButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          e.preventDefault();
+          vibrate(20);
+          button.classList.toggle("active");
+          updateScheduleSummary();
+        });
+      });
+
+      // Event listeners for schedule inputs
+      scheduleRelaySelect.addEventListener('change', updateScheduleSummary);
+      scheduleTimeInput.addEventListener('input', updateScheduleSummary);
+      scheduleActionSelect.addEventListener('change', updateScheduleSummary);
+
+      // Event listener for Set Schedule button
+      setScheduleBtn.addEventListener("click", () => {
+          vibrate();
+          const relayId = scheduleRelaySelect.value;
+          const time = scheduleTimeInput.value;
+          const action = scheduleActionSelect.value;
+          const selectedDays = Array.from(
+            document.querySelectorAll(
+              `#schedule-days .day-btn.active`
+            )
+          ).map((btn) => btn.getAttribute("data-day"));
+
+          if (!time) {
+            alert("Please select a time for the schedule.");
+            return;
+          }
+
+          schedules[relayId] = { time, action, days: selectedDays };
+          saveSchedules();
+          updateScheduleUI();
+      });
+
+      // Event listener for Remove Schedule button
+      removeScheduleBtn.addEventListener("click", () => {
+          vibrate();
+          const relayId = scheduleRelaySelect.value;
+          delete schedules[relayId];
+          saveSchedules();
+          updateScheduleUI();
       });
     </script>
   </body>
