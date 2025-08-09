@@ -550,7 +550,7 @@
       >
         <p>
           Created by Muhammad Faizan Hassan <br />
-          <span id="current-year"></span> Under Development
+          <span id="current-year"></span>
         </p>
       </footer>
     </div>
@@ -989,8 +989,17 @@
               } else if (schedule.scheduleType === "date-range") {
                 // Check for date-range schedules
                 const [startDateStr, endDateStr] = schedule.dateRange;
-                const startDate = new Date(startDateStr);
-                const endDate = new Date(endDateStr);
+
+                // Use explicit parsing to avoid timezone issues
+                const [startYear, startMonth, startDay] = startDateStr
+                  .split("-")
+                  .map(Number);
+                const [endYear, endMonth, endDay] = endDateStr
+                  .split("-")
+                  .map(Number);
+
+                const startDate = new Date(startYear, startMonth - 1, startDay);
+                const endDate = new Date(endYear, endMonth - 1, endDay);
                 endDate.setHours(23, 59, 59, 999); // Ensure end of day for comparison
 
                 const today = new Date();
@@ -1243,21 +1252,50 @@
                 });
               } else if (schedule.scheduleType === "date-range") {
                 const [startDateStr, endDateStr] = schedule.dateRange;
-                const scheduleStartDate = new Date(startDateStr);
-                const scheduleEndDate = new Date(endDateStr);
-                scheduleEndDate.setHours(23, 59, 59, 999); // End of day for comparison
+
+                // Use explicit parsing for consistency and timezone safety
+                const [startYear, startMonth, startDay] = startDateStr
+                  .split("-")
+                  .map(Number);
+                const scheduleStartDate = new Date(
+                  startYear,
+                  startMonth - 1,
+                  startDay
+                );
+                const [endYear, endMonth, endDay] = endDateStr
+                  .split("-")
+                  .map(Number);
+                const scheduleEndDate = new Date(
+                  endYear,
+                  endMonth - 1,
+                  endDay,
+                  23,
+                  59,
+                  59,
+                  999
+                );
 
                 let nextTriggerCandidate = null;
 
                 // Case 1: Current date is before the schedule's start date
                 if (now < scheduleStartDate) {
-                  nextTriggerCandidate = new Date(
-                    startDateStr + "T" + schedule.time
+                  nextTriggerCandidate = new Date(scheduleStartDate);
+                  nextTriggerCandidate.setHours(
+                    scheduledHour,
+                    scheduledMinute,
+                    0,
+                    0
                   );
                 } else if (now >= scheduleStartDate && now <= scheduleEndDate) {
                   // Case 2: Current date is within the schedule's range
                   let todayScheduledTime = new Date(
-                    now.toDateString() + " " + schedule.time
+                    now.getFullYear(),
+                    now.getMonth(),
+                    now.getDate(),
+                    scheduledHour,
+                    scheduledMinute,
+                    0,
+                    0
                   );
 
                   if (todayScheduledTime > now) {
